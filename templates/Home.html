@@ -1,0 +1,168 @@
+<html>
+    {% load static %}
+    <head>
+        <title>Hotel-Buali</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+        <link rel="stylesheet" href="{% static 'hotel_app/css/bootstrap.min.css' %}">
+        <script src="{% static 'hotel_app/js/jquery.min.js' %}"></script>
+        <script src="{% static 'hotel_app/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'hotel_app/js/popper.min.js' %}"></script>
+        <meta charset="utf-8" />
+        
+        <style>
+            body {
+                direction: rtl;
+            }
+            html {
+                scroll-behavior: smooth
+            }   
+            
+            a.nav-link.active {
+                color: black;
+                background-color: #fcd900 !important;
+            }  
+            .bg-rostami {
+                background-image: url("{% static 'hotel_app/img/Hamedan-ParsianBuali-27.jpg' %}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                height: 100%;
+            } 
+            .bg-rostami-2 {
+                background-image: url("{% static 'hotel_app/img/Hamedan-ParsianBuali-27.jpg' %}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                height: 30%;
+            } 
+            .bg-rostami-3 {
+                background-image: url("{% static 'hotel_app/img/Hamedan-ParsianBuali-27.jpg' %}");
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                height: 30%;
+            } 
+ 
+        </style>
+
+        <script>
+
+
+            $(document).ready(function(){
+                var $sec2 = $('#sec2');//Caching element
+                var $sec3 = $('#sec3');//Caching element
+                var objectBottom = $sec2.offset().top + 1200;
+                var objectBottom2 = $sec3.offset().top + 1200 ;
+                $sec3.hide();
+                $sec2.hide();
+                $(function () {
+                    $(window).scroll(function () {
+                        var windowBottom = $(this).scrollTop() + $(this).innerHeight();
+                        console.log( objectBottom2, objectBottom, windowBottom )
+                        if (objectBottom < windowBottom) { //object comes into view (scrolling down)
+                            $sec2.show(2000);
+                            if (objectBottom2 < windowBottom) { //object comes into view (scrolling down)
+                                $sec3.show(2000);
+                            } 
+                        } 
+                    });
+                });
+            });
+            
+        </script>
+    </head>
+    
+    <body data-spy="scroll" data-target=".navbar" data-offset="50">
+        
+        <nav class=" navbar  navbar-expand-sm bg-info navbar-light  fixed-top " >
+            <div class="col-12 ">
+                <ul class="navbar-nav justify-content-center ">
+                    <li class="nav-item dropdown  ">
+                        <a class="nav-link dropdown-toggle bg-secondary text-light rounded m-2  p-2" data-toggle="dropdown" href="#">هتل</a>
+                        <div class="dropdown-menu bg-info">
+                            <a class="dropdown-item  text-light" href="{% url 'hotel_app:reservation' %}">رزرو اتاق</a>
+                            <a class="dropdown-item  text-light" href="{% url 'hotel_app:room_reservation_extention' %}">تمدید اتاق</a>
+                            <a class="dropdown-item  text-light" href="{% url 'hotel_app:checkout' %}">تسویه اتاق</a>
+                            <a class="dropdown-item  text-light" href="{% url 'hotel_app:hotel_cash' %}">صندوق هتل</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown  ">
+                        <a class="nav-link dropdown-toggle bg-secondary text-light rounded m-2  p-2" data-toggle="dropdown" href="#">خدمات</a>
+                        <div class="dropdown-menu bg-info">
+                            <a class="dropdown-item  text-light" href="">خدمت کافه</a>
+                            <a class="dropdown-item  text-light" href="">خدمت استخر</a>
+                            <a class="dropdown-item  text-light" href="">خدمت اتاق کودک</a>
+                            <a class="dropdown-item  text-light" href="">صندوق کارت ویژه</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown  ">
+                        <a class="nav-link dropdown-toggle bg-secondary text-light rounded m-2  p-2" data-toggle="dropdown" href="#">تالار</a>
+                        <div class="dropdown-menu bg-info">
+                            <a class="dropdown-item  text-light" href="">رزرو تالار</a>
+                            <a class="dropdown-item  text-light" href="">تسویه تالار</a>
+                            <a class="dropdown-item  text-light" href="">لغو قرار داد تالار</a>
+                            <a class="dropdown-item  text-light" href="">صندوق تالار</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="bg-rostami "></div>
+        
+        <div id="sec2" class="bg-warning container-fluid" style="padding-top:50px; padding-bottom:50px;">
+            <div class="row  bg-success justify-content-start " >
+                <img id="img3" class="col-3 p-1 rounded " src="{% static 'hotel_app/img/Hamedan-ParsianBuali-28.jpg' %}" data-toggle="modal" data-target="#fdmodal3"/>
+                <img id="img4" class="col-3 p-1 rounded" src="{% static 'hotel_app/img/عکس-هتل-بوعلی-همدان-2.jpg' %}" data-toggle="modal" data-target="#fdmodal4"/>
+                <img id="img2" class="col-3 p-1 rounded" src="{% static 'hotel_app/img/عکس-هتل-بوعلی-همدان-اتاق-سه-تخته.jpg' %}"  data-toggle="modal" data-target="#fdmodal5"/>
+                <img id="img1" class="col-3 p-1 rounded" src="{% static 'hotel_app/img/download.jpg' %}" data-toggle="modal" data-target="#fdmodal6"/>
+            </div>   
+        </div>
+
+        
+        <div class="bg-rostami-2 "></div>
+
+        <div id="sec4" class="bg-secondary container-fluid py-3">
+            <div class="embed-responsive embed-responsive-21by9">
+                <iframe class="embed-responsive-item " src="https://www.aparat.com/video/video/embed/videohash/pWOCk/vt/frame" allowFullScreen="true" webkitallowfullscreen="true" " >
+                </iframe>
+              </div>
+        </div>
+        
+        <div class="bg-rostami-3 "></div>
+        
+        <div class="modal fade" id="fdmodal3">
+            <div class="modal-dialog modal-dialog-start modal-lg">
+                <div class="modal-content p-1 bg-info">
+                    <img id="img3" class="rounded" src="{% static 'hotel_app/img/Hamedan-ParsianBuali-28.jpg' %}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="fdmodal4">
+            <div class="modal-dialog modal-dialog-start modal-lg">
+                <div class="modal-content p-1 bg-info">
+                    <img id="img3" class="rounded" src="{% static 'hotel_app/img/عکس-هتل-بوعلی-همدان-2.jpg' %}"  />
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="fdmodal5">
+            <div class="modal-dialog modal-dialog-start modal-lg">
+                <div class="modal-content p-1 bg-info">
+                    <img id="img3" class="rounded" src="{% static 'hotel_app/img/عکس-هتل-بوعلی-همدان-اتاق-سه-تخته.jpg' %}" />
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="fdmodal6">
+            <div class="modal-dialog modal-dialog-start modal-lg">
+                <div class="modal-content p-1 bg-info">
+                    <img id="img3" class="rounded" src="{% static 'hotel_app/img/download.jpg' %}"  />
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

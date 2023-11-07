@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hotel reservation submit information</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .bg-hotel {
+            background-image: url("{% static 'hotel_app/img/Hamedan-ParsianBuali-27.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100%;
+        } 
+    </style>
+
+    <script>
+        var valid = [ false, false, false, false, false, false, false ]
+        $( document ).ready( function() {
+
+            $( document ).mouseover( function() {
+
+                validation1 :
+                    var value = $( '#customer_firstname_input_id' ).val()
+                    if ( value.length === 0 ) {
+                        $( '#customer_firstname_input_id' ).removeClass( 'is-valid')
+                        $( '#customer_firstname_input_id' ).removeClass( 'is-invalid') 
+                        valid[0] = false;
+                    } else if ( /^[0-9]+$/g.test(value) || /^[0-9]+$/g.test( value[0] ) ) {  // /^[a-zA-Z0-9]+$/
+                        $( '#customer_firstname_input_id' ).removeClass( 'is-valid')
+                        $( '#customer_firstname_input_id' ).addClass( 'is-invalid')
+                        valid[0] = false;
+                    } else {
+                        $( '#customer_firstname_input_id' ).removeClass( 'is-invalid') 
+                        $( '#customer_firstname_input_id' ).addClass( 'is-valid')  
+                        valid[0] = true;   
+                    } 
+                
+                validation2 : 
+                    var value = $( '#customer_lastname_input_id' ).val()
+                    if ( value.length === 0 ) {
+                        $( '#customer_lastname_input_id' ).removeClass( 'is-valid')
+                        $( '#customer_lastname_input_id' ).removeClass( 'is-invalid') 
+                        valid[1] = false;
+                    } else if ( /^[0-9]+$/g.test(value) || /^[0-9]+$/g.test( value[0] ) ) {  // /^[a-zA-Z0-9]+$/
+                        $( '#customer_lastname_input_id' ).removeClass( 'is-valid')
+                        $( '#customer_lastname_input_id' ).addClass( 'is-invalid')
+                        valid[1] = false;
+                    } else {
+                        $( '#customer_lastname_input_id' ).removeClass( 'is-invalid') 
+                        $( '#customer_lastname_input_id' ).addClass( 'is-valid')  
+                        valid[1] = true;    
+                    }
+
+                validation3 :
+                    var value = $( '#customer_phone_input_id' ).val()
+                    if ( value.length === 0 ) {
+                        $( '#customer_phone_input_id' ).removeClass( 'is-valid')
+                        $( '#customer_phone_input_id' ).removeClass( 'is-invalid')
+                        valid[2] = false; 
+                    } else if ( /^[a-zA-Z]+$/g.test(value) || /^[a-zA-Z]+$/g.test( value[0] ) ) {  // /^[a-zA-Z0-9]+$/
+                        $( '#customer_phone_input_id' ).removeClass( 'is-valid')
+                        $( '#customer_phone_input_id' ).addClass( 'is-invalid')
+                        valid[2] = false;
+                    } else {
+                        $( '#customer_phone_input_id' ).removeClass( 'is-invalid') 
+                        $( '#customer_phone_input_id' ).addClass( 'is-valid') 
+                        valid[2] = true;     
+                    }  
+                    
+                validation4 : 
+                    var value = $( '#cutomer_nationalcode_input_id' ).val()
+                    if ( value.length === 0 ) {
+                        $( '#cutomer_nationalcode_input_id' ).removeClass( 'is-valid')
+                        $( '#cutomer_nationalcode_input_id' ).removeClass( 'is-invalid')
+                        valid[3] = false; 
+                    } else if ( /^[a-zA-Z]+$/g.test(value) || /^[a-zA-Z]+$/g.test( value[0] ) ) {  // /^[a-zA-Z0-9]+$/
+                        $( '#cutomer_nationalcode_input_id' ).removeClass( 'is-valid')
+                        $( '#cutomer_nationalcode_input_id' ).addClass( 'is-invalid')
+                        valid[3] = false;
+                    } else {
+                        $( '#cutomer_nationalcode_input_id' ).removeClass( 'is-invalid') 
+                        $( '#cutomer_nationalcode_input_id' ).addClass( 'is-valid')  
+                        valid[3] = true;    
+                    } 
+
+                validation5 : 
+                    var check = $( '#rulescheck_id' ).prop( "checked")
+                    if( check ){
+                        valid[4] = true;
+                    } 
+                    else {
+                        valid[4] = false;
+                    }
+                
+                validation6 : 
+                    var values = document.getElementsByClassName( "dependent-validation")
+                    valid[5] = true;
+                    var localValidation = [ ]
+                    var index = 0
+                    for ( let item of values ){
+                        if ( item.value.length == 0 ) {
+                            localValidation[ index ] = false
+                            index++;
+                        }
+                    }
+                    localValidation.forEach( function( item, index ){
+                        if ( item == false ) valid[5] = false;
+                    })
+
+                validation7:
+                    var date = $( '#sdate_id' ).val()
+                    if ( date.length == 0 ) {
+                        valid[ 6 ] = false;
+                    }
+                    else {
+                        valid[ 6 ] = true;
+                    }
+                    
+                })
+                 
+            $( '#submitall' ).click( function(e) {
+                var validation = true;
+                valid.forEach( function( item, index ){
+                    if ( !item ) {
+                        validation = false;
+                    }
+                })
+                if ( validation ) {
+                    $('#myModal').modal( "show" )
+                }
+                else if ( !validation ) {
+                    $('#myAlert').css( "display", "block")
+                    $('#myAlert').delay(2000).slideUp(100); 
+                }
+            })
+        })
+    </script>
+
+</head>
+<body class="bg-hotel">
+    <div class="alert alert-danger alert-dismissible fade show m-3 fixed-top" style="display: none;" id="myAlert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong><span> Fill out * fields by correct content syntax </span> 
+    </div>
+    <h1 style="text-align: center; margin-top: 50px;">Room reservation</h1>
+    <form action="{% url 'hotel_app:successful-submit' %}" method="post">
+        <div class="container bg-info mt-5" style="background-color: rgba(231, 231, 231, 0.493);">
+            <div class="row">
+                <div class="col">
+                    <h5 style="text-align: center;">Fill information </h5>
+                </div>
+            </div>
+            <form action="" method="post" id="info_post_id">
+                {% csrf_token %} 
+                <div class="container bg-info mt-5" style="background-color: rgba(231, 231, 231, 0.493);">
+            
+                    <div class="row">
+
+                        <div class="col-md-4 mb-3">
+                          <label for="customer_firstname_input_id" class="form-label">First Name (*)</label>
+                          <input type="text" class="form-control" id="customer_firstname_input_id" placeholder="(eg.) John" name="customer_firstname" required>
+                          <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                          <div class="invalid-feedback">
+                            Can not consists of Number !...
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                          <label for="customer_lastname_input_id" class="form-label">Last name (*)</label>
+                          <input type="text" class="form-control" id="customer_lastname_input_id" placeholder="(eg.) Doe" name="customer_lastname" required>
+                          <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                          <div class="invalid-feedback">
+                             Can not consists of Number !...
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                          <label for="customer_phone_input_id" class="form-label">Phone Number (*)</label>
+                            <input type="tel" class="form-control " id="customer_phone_input_id" placeholder="(eg.) 09121234567" name="customer_phone" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                              Phone Number Can not Consists of Characters !...
+                            </div>
+                        </div>
+
+                    </div>
+            
+                    <div class="row mt-3">
+
+                        <div class="col-md-4 mb-3">
+                            <label for="cutomer_nationalcode_input_id" class="form-label">National code (*)</label>
+                            <input type="tel" class="form-control" id="cutomer_nationalcode_input_id" placeholder="(eg.) 1234567890" name="cutomer_nationalcode" required>
+                            <div class="valid-feedback">
+                              Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                              Can not consists of Characters !...
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="customer_birthdate_input_id" class="form-label">Birth day</label>
+                            <input type="date" class="form-control" name="customer_birthdate" id="customer_birthdate_input_id">
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="customer_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" placeholder="(eg.) example@email.com" name="customer_email" id="customer_email_input_id">
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col">
+                            <div class="">
+                                <input class="" type="number" id="dependents_number_id" name="dependents_number" min="0" max="3">
+                                <label class="" for="dependents_number_id">Number of dependents</label>
+                            </div> 
+                        </div>
+                        <script>
+                            $( document ).ready( function() {
+                                $( '#dependents_number_id').change( function() {
+                                    var numbers = $(this).val();
+                                    $( '#dependents').empty()
+                                    for( let i = 0; i < numbers; i++ ) {
+                                        var elem = `<div class="row mt-4 ms-4">
+                                                        <div class="col-sm-4">
+                                                           <label for="dependent_number_${i}_firstname" class="form-label" >First name(*):</label>
+                                                           <input type="text" class="form-control dependent-validation" placeholder="(eg.) John"  name="dependent_number_${i}_firstname" required>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label for="dependent_number_${i}_lastname" class="form-label">Last name(*):</label>
+                                                            <input type="text" class="form-control dependent-validation" placeholder="(eg.) Doe"  name="dependent_number_${i}_lastname" required>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label for="dependent_number_${i}_nationalcode" class="form-label">National code(*):</label>
+                                                            <input type="tel" class="form-control dependent-validation" placeholder="(eg.) 1234567890"  name="dependent_number_${i}_nationalcode" required>
+                                                        </div>
+                                                    </div>`
+
+                                        $( '#dependents').append( elem )
+                                        
+                                    }
+                                })
+                            })
+                        </script>
+                    </div>
+            
+                    <div id="dependents" class="container">
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rulescheck_id" name="rulescheck" required>
+                                <label class="form-check-label"> (*)I confirm above information and agree with all Hotel license and rules</label>
+                            </div> 
+                        </div>
+                    </div>
+            
+                </div>
+            
+            
+            <div class="row mt-5">
+                <div class="col-sm-6">
+                    <label for="sdate" class="form-label" >Start date of reservation(*):</label>
+                    <input type="date" class="form-control" id="sdate_id" name="startdate" required>
+                </div>
+                
+                <div class="col-sm-6">
+                    <label for="nday" class="form-label" >Number of days (1 to 10) *:</label>
+                    <div class="input-group" id="nday">
+                        <input type="range" class="form-range" min="1" max="10" value="1" step="1" id="reservationRange_id" oninput="updateTextInput(this.value);" name="reservation_range" required>
+                        <p  id="ndtext">1 days</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 ">
+                <div class="col d-flex justify-content-center m-4">
+                    <a href="#" class="btn btn-primary" data-bs-target="#myModal" id="submitall">submit information</a>
+                </div>
+            </div>
+            
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                <div class="modal-content">
+            
+                    <div class="modal-header d-flex justify-content-center">
+                        <h4 class="modal-title">reservation detail</h4>
+                    </div>
+            
+                    <div class="modal-body">
+                        <p>customer first name :<span id="customer_firstname_id"></span></p>
+                        <p>customer last name :<span id="customer_lastname_id"></span></p>
+                        <p>customer phone :<span id="customer_phone_id"></span></p>
+                        <p>reservation start date :<span id="reservation_startdate_id"></span></p>
+                        <p>reservation  end date: <span id="reservation_enddate_id"></span></p>
+                        <p>room id: <span id="room_id_id">{{ room_spec.id }}</span></p>
+                        <p>number of beds: <span id="room_beds_id">{{ room_spec.num_bed }}</span></p>
+                        <p>cost per night: <span id="room_cost_per_night_id">{{ room_spec.cost_per_night }}</span></p>
+                        <p>final cost : <span id="final_cost_id"></span></p>
+                    </div>
+            
+                    <div class="modal-footer">
+                        <a  class="btn btn-danger" data-bs-dismiss="modal" href="{% url 'home' %}">cancel</a>
+                        <button type="submit" class="btn btn-success" name="final_post" >accept</button>
+                    </div>
+            
+                </div>
+                </div>
+            </div>
+
+            <input type="text" name="final_roomchoice" value={{ room_spec.id }} style="display: none;" />
+            </form>
+
+
+            <script>
+                $( document ).ready( function() {
+                    $( '#submitall' ).click( function() {
+                        var txt = $( '#customer_firstname_input_id' ).val();
+                        $( '#customer_firstname_id' ).text( txt )
+
+                        var txt = $( '#customer_lastname_input_id' ).val();
+                        $( '#customer_lastname_id' ).text( txt )
+
+                        var txt = $( '#customer_phone_input_id' ).val();
+                        $( '#customer_phone_id' ).text( txt )
+                        
+                        
+                        var txt = $( '#sdate_id' ).val();
+                        var date = txt.split( "-" );
+                        var year = date[0]
+                        var month = date[1]
+                        var day = date[2]
+                        $( '#reservation_startdate_id' ).text( txt )
+
+                        var days = $( '#reservationRange_id' ).val();
+                        var endDay = parseInt ( day )
+                        var endMonth = parseInt ( month )
+                        var endYear = parseInt ( year ) 
+                        endDay += parseInt( days ) 
+                        if ( endDay > 31 ) {
+                            endDay -= 31
+                            endMonth += 1
+                        }
+                        if ( endMonth > 12 ) {
+                            endMonth -= 12
+                            endYear += 1 
+                        }
+                        var txt = String( endYear ) + "-" + ('0' + String( endMonth ) ).slice(-2) + "-" + ('0' + String( endDay )).slice(-2) 
+                        $( '#reservation_enddate_id' ).text( txt )
+
+                        var value = $( '#room_cost_per_night_id' ).text()
+                        var cost = parseInt( value ) * parseInt( days )
+                        var value = $( '#final_cost_id' ).text( cost )
+                    })
+                });
+            </script>
+            
+        </div>
+
+    <script>
+        function updateTextInput(val) {
+          document.getElementById("ndtext").innerHTML=val+' day'; 
+        }
+    </script>
+</body>
+</html>

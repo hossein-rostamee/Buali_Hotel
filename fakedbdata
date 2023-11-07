@@ -1,0 +1,47 @@
+from hotel_app.models import *
+from datetime import date , timedelta
+
+
+
+
+c12 = Customer_info(first_name = 'setare', last_name ='samii' , phone='08934533453', national_code='7987689746',
+                    birth_day = '1992-07-14' , usr_email = 'abcdef@gmail.com' )
+c12.save()
+
+r12 = Room ( num_bed = '3' , special_view_flag = False ,
+            max_num_person = '4' , cost_per_night = '150', reservation_status = False )
+r12.save()
+
+resv12 = Reservation(start_date = date.today()-timedelta(4),finish_date = date.today(),
+    reservation_room_fk = r12,reservation_customer_fk = c12,reservation_status = 'active')
+resv12.save()
+
+
+
+c13 = Customer_info(first_name = 'ali', last_name ='akbari' , phone='08975675673', national_code='7987659746',
+                    birth_day = '1999-07-14' , usr_email = 'agdfgdfgferf@gmail.com' )
+c13.save()
+
+r13 = Room ( num_bed = '4' , special_view_flag = True ,
+            max_num_person = '5' , cost_per_night = '500', reservation_status = False )
+r13.save()
+
+resv13 = Reservation(start_date = date.today()-timedelta(3),finish_date = date.today(),
+    reservation_room_fk = r13,reservation_customer_fk = c13,reservation_status = 'active')
+resv13.save()
+
+
+
+c14 = Customer_info(first_name = 'fateme', last_name ='nasiri' , phone='08778678673', national_code='7987456456',
+                    birth_day = '2000-07-14' , usr_email = 'fatemedef@gmail.com' )
+c14.save()
+
+r14 = Room ( num_bed = '2' , special_view_flag = True ,
+            max_num_person = '3' , cost_per_night = '200', reservation_status = False )
+r14.save()
+
+resv14 = Reservation(start_date = date.today()-timedelta(4),finish_date = date.today()+timedelta(2),
+    reservation_room_fk = r14,reservation_customer_fk = c14,reservation_status = 'active')
+resv14.save()
+
+
